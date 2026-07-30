@@ -1,0 +1,40 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Espace Vétérinaire — VetCare Plus" chatRole="veterinaire">
+  <div class="dash" id="dashContent">Chargement…</div>
+
+  <script is:inline>
+    (function () {
+      var u = window.vcRequireRole('veterinaire');
+      if (!u) return;
+
+      Promise.all([
+        fetch(window.VC_API).then(function (r) { return r.json(); }).catch(function () { return null; }),
+        fetch(window.VC_API_PATIENTS).then(function (r) { return r.json(); }).catch(function () { return { patients: [] }; }),
+      ]).then(function (results) {
+        var data = results[0];
+        var patients = results[1].patients || [];
+        var c = document.getElementById('dashContent');
+
+        var planning = (data && data.planning_today) || [];
+        var prows = planning.length
+          ? planning.map(function (r) { return '<tr><td>' + r.heure + '</td><td>' + r.client + '</td><td>' + r.animal + '</td><td>' + r.motif + '</td></tr>'; }).join('')
+          : '<tr><td colspan="4" style="color:var(--muted)">Aucun RDV aujourd’hui</td></tr>';
+        var patRows = patients.map(function (p) {
+          return '<tr><td><b>' + p.nom + '</b> (' + p.espece + ')</td><td>' + p.proprietaire + '</td><td>'
+            + (p.soins[0] ? p.soins[0].type + ' · ' + p.soins[0].date : '—') + '</td></tr>';
+        }).join('');
+
+        c.innerHTML = '<h1>Espace Vétérinaire</h1><div class="sub">Dr. Lefèvre · ' + (data ? data.today : '') + '</div>'
+          + '<div class="panel"><h3>📅 Planning du jour <span style="font-size:.7rem;color:var(--sea)">● live</span></h3><table><tr><th>Heure</th><th>Client</th><th>Animal</th><th>Motif</th></tr>' + prows + '</table></div>'
+          + '<div class="grid2"><div class="panel"><h3>Mes patients</h3><table><tr><th>Animal</th><th>Propriétaire</th><th>Dernier soin</th></tr>' + patRows + '</table></div>'
+          + '<div class="panel"><h3>Notes cliniques</h3>'
+          + '<div class="conseil"><b>Luna</b> — surveiller la cicatrice à J+7, retirer collerette si OK.</div>'
+          + '<div class="conseil"><b>Félix</b> — fin d’antibiotiques le 30/07, recontrôler l’appétit.</div>'
+          + '<div class="conseil"><b>Rex</b> — allergie puces, privilégier pipette vétérinaire.</div>'
+          + '<p style="color:var(--muted);font-size:.88rem;margin-top:12px">💬 Demandez à l’assistant le planning ou les disponibilités.</p></div></div>';
+      });
+    })();
+  </script>
+</Layout>

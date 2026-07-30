@@ -1,0 +1,63 @@
+---
+import '../styles/global.css';
+import '@n8n/chat/style.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  chatRole?: 'public' | 'veterinaire' | 'directeur';
+}
+
+const {
+  title = 'VetCare Plus — Clinique vétérinaire',
+  description = "VetCare Plus : clinique vétérinaire à Paris, 8 vétérinaires, vaccins, soins, urgences 7j/7 et assistant santé animale en ligne.",
+  chatRole = 'public',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="icon" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="/site.js" is:inline></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">
+      <span class="brand-mark">
+        <svg width="36" height="36" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="40" height="40" rx="11" fill="#028090"/>
+          <ellipse cx="20" cy="26" rx="8" ry="6.6" fill="#fff"/>
+          <ellipse cx="9.8" cy="17.4" rx="3.6" ry="4.6" fill="#fff" transform="rotate(-18 9.8 17.4)"/>
+          <ellipse cx="17" cy="10.8" rx="3.6" ry="4.8" fill="#fff" transform="rotate(-6 17 10.8)"/>
+          <ellipse cx="24.4" cy="10.6" rx="3.6" ry="4.8" fill="#fff" transform="rotate(6 24.4 10.6)"/>
+          <ellipse cx="31" cy="17.2" rx="3.6" ry="4.6" fill="#fff" transform="rotate(18 31 17.2)"/>
+        </svg>
+      </span>
+      <span class="brand-word">VetCare Plus<small>CLINIQUE VÉTÉRINAIRE</small></span>
+    </a>
+    <div id="nav"></div>
+  </header>
+
+  <slot />
+
+  <div class="foot">© VetCare Plus — Assistant IA &amp; espace pro propulsés par n8n · Démonstration</div>
+
+  <script type="module" define:vars={{ chatRole }}>
+    import { createChat } from '@n8n/chat';
+    createChat({
+      webhookUrl: window.VC_WEBHOOK,
+      metadata: { role: chatRole },
+      initialMessages: ['Bonjour ! 🐾 Assistant VetCare Plus.', 'Comment puis-je vous aider ?'],
+      i18n: { en: { title: 'VetCare Plus', subtitle: 'Assistant santé animale', footer: '', getStarted: 'Nouvelle conversation', inputPlaceholder: 'Votre question…', closeButtonTooltip: 'Fermer' } }
+    });
+  </script>
+</body>
+</html>

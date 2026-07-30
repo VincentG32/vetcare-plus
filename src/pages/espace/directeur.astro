@@ -1,0 +1,56 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Tableau de bord Direction — VetCare Plus" chatRole="directeur">
+  <div class="dash" id="dashContent">Chargement…</div>
+
+  <script>
+    import Chart from 'chart.js/auto';
+
+    function drawCharts(data) {
+      if (!data) return;
+      const teal = '#028090', sea = '#00a896', amber = '#f2a154', red = '#e05a4f', grey = '#9fbec4', blue = '#4a90a4';
+      const pj = data.rdv_par_jour || {};
+      const jours = Object.keys(pj).sort();
+      new Chart(document.getElementById('chJours'), {
+        type: 'bar',
+        data: { labels: jours, datasets: [{ label: 'RDV', data: jours.map((j) => pj[j]), backgroundColor: teal, borderRadius: 6 }] },
+        options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } },
+      });
+      const tc = data.triage_par_categorie || {};
+      const cats = Object.keys(tc);
+      new Chart(document.getElementById('chTriage'), {
+        type: 'doughnut',
+        data: { labels: cats, datasets: [{ data: cats.map((c) => tc[c]), backgroundColor: [teal, sea, amber, red, grey, blue] }] },
+        options: { plugins: { legend: { position: 'right' } } },
+      });
+      const m = data.monitoring || { succes: 0, echec: 0 };
+      new Chart(document.getElementById('chMon'), {
+        type: 'bar',
+        data: { labels: ['Succès', 'Incidents'], datasets: [{ data: [m.succes, m.echec], backgroundColor: [sea, red], borderRadius: 6 }] },
+        options: { indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { beginAtZero: true, ticks: { precision: 0 } } } },
+      });
+    }
+
+    const u = window.vcRequireRole('directeur');
+    if (u) {
+      Promise.all([
+        fetch(window.VC_API).then((r) => r.json()).catch(() => null),
+        fetch(window.VC_API_PATIENTS).then((r) => r.json()).catch(() => ({ patients: [] })),
+      ]).then(([data, pd]) => {
+        const patients = pd.patients || [];
+        const c = document.getElementById('dashContent');
+        const k = (data && data.kpis) || {};
+        const al = (data && data.alertes) || [];
+        const kpi = (n, l) => '<div class="kpi"><div class="n">' + (n ?? '—') + '</div><div class="l">' + l + '</div></div>';
+        const alH = al.map((a) => '<div class="alert' + (a.toLowerCase().includes('aucun') ? ' ok' : '') + '">' + (a.toLowerCase().includes('aucun') ? '✅ ' : '⚠️ ') + a + '</div>').join('');
+        c.innerHTML = '<h1>Tableau de bord · Direction</h1><div class="sub">Vue macro de la clinique · ' + (data ? data.today : '') + ' <span style="color:var(--sea)">● live</span></div>'
+          + '<div class="kpis">' + kpi(k.rdv_today, 'RDV aujourd’hui') + kpi((k.taux_occupation_today ?? '—') + '%', 'Taux d’occupation') + kpi(k.rdv_semaine, 'RDV cette semaine') + kpi(patients.length, 'Patients suivis') + kpi(k.emails_tries, 'Emails triés') + kpi(k.executions_ko, 'Incidents') + '</div>'
+          + '<div class="panel"><h3>Points de vigilance</h3>' + (alH || '<div class="alert ok">✅ RAS</div>') + '</div>'
+          + '<div class="grid2"><div class="panel"><h3>RDV par jour</h3><canvas id="chJours" height="180"></canvas></div><div class="panel"><h3>Répartition des demandes (triage)</h3><canvas id="chTriage" height="180"></canvas></div></div>'
+          + '<div class="panel"><h3>Fiabilité technique (monitoring)</h3><canvas id="chMon" height="110"></canvas></div>';
+        setTimeout(() => drawCharts(data), 60);
+      });
+    }
+  </script>
+</Layout>

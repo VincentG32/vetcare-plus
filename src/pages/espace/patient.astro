@@ -1,0 +1,44 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Espace Patient — VetCare Plus" chatRole="public">
+  <div class="dash" id="dashContent">Chargement…</div>
+
+  <script is:inline>
+    (function () {
+      var u = window.vcRequireRole('patient');
+      if (!u) return;
+
+      var soinsRows = function (p) {
+        return p.soins.map(function (s) {
+          return '<tr><td>' + s.date + '</td><td><b>' + s.type + '</b><br>'
+            + '<span style="color:var(--muted);font-size:.85rem">' + s.notes + '</span></td></tr>';
+        }).join('');
+      };
+
+      fetch(window.VC_API_PATIENTS).then(function (r) { return r.json(); }).then(function (pd) {
+        var patients = pd.patients || [];
+        var p = patients.find(function (x) { return x.proprietaire === u.name; }) || patients[0];
+        var c = document.getElementById('dashContent');
+        if (!p) {
+          c.innerHTML = '<h1>Bonjour ' + u.name + ' 🐾</h1><div class="sub">Votre espace patient</div>'
+            + '<div class="panel">Données indisponibles pour le moment, réessayez dans un instant.</div>';
+          return;
+        }
+        c.innerHTML = '<h1>Bonjour ' + u.name + ' 🐾</h1><div class="sub">Votre espace patient</div><div class="grid2">'
+          + '<div class="panel"><h3>Mon animal</h3><p style="font-size:1.05rem"><b>' + p.nom + '</b> — ' + p.espece + ' (' + p.race + '), né en ' + p.naissance + '</p>'
+          + '<p style="color:var(--muted);font-size:.9rem">Vétérinaire référent : ' + p.veterinaire + '</p>'
+          + '<div class="conseil" style="margin-top:12px">🩺 <b>Suivi en cours :</b> ' + p.antecedents + '</div>'
+          + '<h3 style="margin-top:18px">Historique des soins</h3><table><tr><th>Date</th><th>Soin</th></tr>' + soinsRows(p) + '</table></div>'
+          + '<div class="panel"><h3>Conseils personnalisés</h3>'
+          + '<div class="conseil">🦟 Antiparasitaire à renouveler avant l’été.</div>'
+          + '<div class="conseil">🍽️ Alimentation adaptée au poids et à l’âge de ' + p.nom + '.</div>'
+          + '<div class="conseil">📅 Pensez au prochain rappel vaccinal.</div>'
+          + '<h3 style="margin-top:18px">Une question ?</h3><p style="color:var(--muted);font-size:.9rem">Utilisez l’assistant en bas à droite pour toute question de santé ou pour demander un rendez-vous.</p></div>'
+          + '</div>';
+      }).catch(function () {
+        document.getElementById('dashContent').innerHTML = '<div class="panel">Données indisponibles pour le moment, réessayez dans un instant.</div>';
+      });
+    })();
+  </script>
+</Layout>
