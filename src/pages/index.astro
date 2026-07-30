@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { SERVICES } from '../data/services.js';
+import { ICONS } from '../data/icons.js';
 ---
 <Layout>
   <section class="hero">
@@ -17,6 +19,7 @@ import Layout from '../layouts/Layout.astro';
           <div><b>24/7</b>urgences</div>
           <div><b>5</b>espèces suivies</div>
         </div>
+        <p style="margin:22px 0 0"><a href="/comment-ca-marche" style="color:#fff;opacity:.85;font-size:.86rem;text-decoration:underline">Curieux de savoir comment fonctionne l'assistant ? →</a></p>
       </div>
       <div class="hero-visual" aria-hidden="true">
         <div class="blob"></div>
@@ -34,30 +37,13 @@ import Layout from '../layouts/Layout.astro';
 
   <div class="wrap">
     <div class="cards">
-      <div class="card" onclick="this.classList.toggle('open')">
-        <div class="card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="13.5" y="2.5" width="4" height="7" rx="1" transform="rotate(45 15.5 6)"/><line x1="12.7" y1="8.8" x2="17.3" y2="4.2"/><line x1="8" y1="16" x2="13.5" y2="10.5"/><line x1="6.2" y1="13.2" x2="8.8" y2="15.8"/><line x1="8.2" y1="11.2" x2="10.8" y2="13.8"/><line x1="3.5" y1="20.5" x2="7" y2="17"/></svg></div>
-        <h3>Vaccination</h3><p>Primo-vaccination et rappels.</p>
-        <div class="card-more"><p>Un protocole adapté à chaque animal : primo-vaccination dès les premières semaines, rappels annuels, carnet de suivi à jour. Nos vétérinaires vous orientent selon l'âge et le mode de vie de votre compagnon.</p></div>
-        <span class="card-toggle">En savoir plus <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
-      </div>
-      <div class="card" onclick="this.classList.toggle('open')">
-        <div class="card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v5a6 6 0 0 0 12 0V3"/><line x1="6" y1="3" x2="6" y2="3"/><circle cx="18" cy="15" r="3"/><path d="M18 12V10"/></svg></div>
-        <h3>Consultations</h3><p>Bilans et suivi personnalisé.</p>
-        <div class="card-more"><p>Bilans de santé complets, suivi des maladies chroniques, avis spécialisé si besoin. Sur rendez-vous ou en visite libre, nos 8 vétérinaires prennent le temps d'expliquer chaque étape.</p></div>
-        <span class="card-toggle">En savoir plus <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
-      </div>
-      <div class="card" onclick="this.classList.toggle('open')">
-        <div class="card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 21 19H3Z"/><line x1="12" y1="9" x2="12" y2="14"/><circle cx="12" cy="16.7" r=".4" fill="currentColor"/></svg></div>
-        <h3>Urgences</h3><p>Prise en charge rapide 7j/7.</p>
-        <div class="card-more"><p>Une équipe joignable 7j/7 pour les situations qui n'attendent pas : traumatisme, intoxication, difficulté respiratoire. En cas de doute, contactez-nous immédiatement, nous vous guidons par téléphone.</p></div>
-        <span class="card-toggle">En savoir plus <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
-      </div>
-      <div class="card" onclick="this.classList.toggle('open')">
-        <div class="card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><ellipse cx="12" cy="16.5" rx="4.8" ry="4"/><ellipse cx="6.2" cy="10.3" rx="2.2" ry="2.8" transform="rotate(-18 6.2 10.3)"/><ellipse cx="10.2" cy="6.3" rx="2.2" ry="2.9" transform="rotate(-6 10.2 6.3)"/><ellipse cx="14.7" cy="6.2" rx="2.2" ry="2.9" transform="rotate(6 14.7 6.2)"/><ellipse cx="18.4" cy="10.1" rx="2.2" ry="2.8" transform="rotate(18 18.4 10.1)"/></svg></div>
-        <h3>Conseils</h3><p>Alimentation, comportement, parasites.</p>
-        <div class="card-more"><p>Alimentation adaptée à l'âge et au poids, prévention des parasites, accompagnement du comportement au quotidien. Nos conseils évoluent avec chaque étape de la vie de votre animal.</p></div>
-        <span class="card-toggle">En savoir plus <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
-      </div>
+      {SERVICES.map((service) => (
+        <a class="card" href={`/services/${service.slug}`}>
+          <div class="card-icon" set:html={ICONS[service.icon]} />
+          <h3>{service.title}</h3><p>{service.tagline}</p>
+          <span class="card-toggle">En savoir plus <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
+        </a>
+      ))}
     </div>
 
     <div class="info-section">

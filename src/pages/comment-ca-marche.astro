@@ -1,0 +1,50 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { ICONS } from '../data/icons.js';
+
+const PRINCIPLES = [
+  { icon: 'recherche', title: 'Il cherche avant de répondre', text: "L'assistant ne répond jamais de mémoire sur un sujet de santé animale : il interroge d'abord une vraie base de connaissance et cite ses sources. S'il ne trouve rien, il le dit honnêtement plutôt que d'inventer." },
+  { icon: 'securite', title: 'Un filtre de sécurité avant chaque réponse', text: "Chaque message passe par un juge IA dédié avant d'atteindre l'assistant : il bloque les demandes de diagnostic définitif, les tentatives de manipulation et les questions hors sujet, avec une réponse bienveillante." },
+  { icon: 'memoire', title: 'Une mémoire, pas juste une conversation', text: "L'assistant retient les informations importantes communiquées par un propriétaire (le nom de son animal, un traitement en cours) d'une visite à l'autre — mais seulement celles qui le concernent." },
+  { icon: 'acces', title: 'Un accès différent selon qui vous êtes', text: "Un visiteur, un vétérinaire et la direction ne voient pas les mêmes informations. Ce contrôle est fait à deux niveaux : par l'assistant, et par le filtre de sécurité lui-même." },
+  { icon: 'mesure', title: 'Mesuré, pas juste testé une fois', text: "Un jury IA note chaque réponse sur une grille définie à l'avance (pertinence, sécurité, clarté) et rejoue ce test régulièrement pour détecter toute dégradation dans le temps." },
+];
+---
+<Layout title="Comment ça marche — VetCare Plus" description="Comment fonctionne l'assistant IA de VetCare Plus : recherche documentaire, garde-fou de sécurité, mémoire, accès par rôle, évaluation continue.">
+  <div class="wrap" style="padding-top:32px">
+    <div class="breadcrumb"><a href="/">Accueil</a> / Comment ça marche</div>
+
+    <span class="section-kicker">Coulisses du projet</span>
+    <h1 style="margin:0 0 14px">Comment fonctionne l'assistant de VetCare Plus ?</h1>
+    <p class="service-intro">
+      Ce n'est pas un chatbot scripté : c'est un agent IA (Claude, d'Anthropic) qui s'appuie sur une vraie base de connaissance,
+      protégé par un filtre de sécurité dédié, avec une mémoire par propriétaire et un accès différencié selon le rôle connecté.
+      Ce site a été construit pendant une formation IA (La Capsule) et sert aujourd'hui de démonstration technique.
+    </p>
+
+    <div class="principle-grid">
+      {PRINCIPLES.map((p) => (
+        <div class="principle-card">
+          <div class="card-icon" set:html={ICONS[p.icon]} />
+          <h3>{p.title}</h3>
+          <p>{p.text}</p>
+        </div>
+      ))}
+    </div>
+
+    <h2 class="section-title">En chiffres</h2>
+    <div class="kpis" style="margin-bottom:50px">
+      <div class="kpi"><div class="n">4,96/5</div><div class="l">Score qualité moyen (jury IA, sur grille pertinence/sécurité/clarté)</div></div>
+      <div class="kpi"><div class="n">9/10</div><div class="l">Tests gagnés par le prompt actuel lors d'un A/B test en aveugle</div></div>
+      <div class="kpi"><div class="n">100%</div><div class="l">Cas à risque toujours refusés correctement, même sans le filtre de sécurité (testé)</div></div>
+    </div>
+
+    <div class="cta-panel">
+      <h3>Envie de voir le code ?</h3>
+      <p>Le site (ce que vous voyez) est open source. Le système derrière l'assistant (agent, garde-fou, mémoire) tourne dans une infrastructure privée, décrite en détail dans le dépôt.</p>
+      <a class="btn amber" href="https://github.com/VincentG32/vetcare-plus" target="_blank" rel="noopener">Voir le dépôt GitHub</a>
+    </div>
+
+    <a class="back-link" href="/" style="text-align:left;margin:0 0 60px">← Retour à l'accueil</a>
+  </div>
+</Layout>

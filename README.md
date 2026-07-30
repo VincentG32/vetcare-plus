@@ -12,7 +12,9 @@ Le dépôt que vous lisez ne contient que la **partie visible** : le site public
 
 ## Ce que fait le site
 
-- **Page publique** : présentation de la clinique, 4 cartes services avec contenu déplié, infos pratiques, et un assistant conversationnel accessible à tout visiteur.
+- **Page publique** : présentation de la clinique, 4 services avec leur propre page (vaccination, consultations, urgences, conseils), infos pratiques, et un assistant conversationnel accessible à tout visiteur.
+- **Pages services** (`/services/<slug>`) : contenu détaillé (ce qui est inclus, déroulé type, FAQ) et un CTA qui ouvre l'assistant avec un message pré-rempli adapté au service — le contenu statique renvoie directement vers le produit qui fonctionne derrière.
+- **Page "Comment ça marche"** (`/comment-ca-marche`) : explique en langage accessible les mécanismes réels de l'assistant (recherche documentaire, garde-fou de sécurité, mémoire, accès par rôle, évaluation continue), avec quelques chiffres tirés des vraies évaluations du projet.
 - **Espace connecté** (3 rôles, comptes de démonstration) :
   - **Patient** : fiche de son animal, historique des soins, conseils personnalisés.
   - **Vétérinaire** : planning du jour en direct, liste de ses patients, notes cliniques.
@@ -41,13 +43,18 @@ src/
   pages/
     index.astro              page publique
     connexion.astro          connexion (comptes de démo)
+    comment-ca-marche.astro  coulisses techniques du projet
+    services/[slug].astro    page dynamique, une par service (données dans src/data/services.js)
     espace/
       patient.astro
       veterinaire.astro
       directeur.astro
+  data/
+    services.js              contenu des 4 pages services (inclus, déroulé, FAQ, CTA)
+    icons.js                 icônes SVG partagées entre les cartes et les pages services
   styles/global.css          système de design (couleurs, typographie, composants)
 public/
-  site.js                    comptes de démo, navigation, authentification simulée
+  site.js                    comptes de démo, navigation, authentification simulée, ouverture du chat pré-rempli
 ```
 
 Chaque page d'espace connecté vérifie le rôle de l'utilisateur au chargement (`vcRequireRole`) et redirige vers la connexion ou vers le bon espace si besoin.

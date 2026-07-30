@@ -1,0 +1,96 @@
+// Contenu des 4 pages services. Contenu de site vitrine (démo), pas des données médicales réelles.
+export const SERVICES = [
+  {
+    slug: 'vaccination',
+    icon: 'vaccination',
+    title: 'Vaccination',
+    tagline: 'Primo-vaccination et rappels.',
+    intro: "Un protocole adapté à chaque animal : primo-vaccination dès les premières semaines, rappels annuels, carnet de suivi à jour. Nos vétérinaires vous orientent selon l'âge, l'espèce et le mode de vie de votre compagnon (intérieur, extérieur, contact avec d'autres animaux).",
+    inclus: [
+      "Examen de santé général avant chaque injection",
+      "Vaccin adapté au protocole recommandé pour l'espèce et l'âge",
+      "Mise à jour du carnet de santé",
+      "Conseils de prévention personnalisés (parasites, alimentation)",
+    ],
+    deroule: [
+      { titre: 'Prise de rendez-vous', texte: "Via l'assistant en ligne ou par téléphone, en précisant l'âge et l'espèce de votre animal." },
+      { titre: 'Examen clinique', texte: 'Un contrôle rapide de son état de santé général avant toute injection.' },
+      { titre: 'Injection et documentation', texte: 'Le vaccin est administré et consigné dans le carnet de santé.' },
+      { titre: 'Prochain rappel programmé', texte: 'La date du rappel suivant vous est communiquée avant de partir.' },
+    ],
+    faq: [
+      { q: 'À quel âge faut-il commencer la primo-vaccination ?', r: "En général dès 8 semaines pour un chiot ou un chaton, avec une deuxième injection 3 à 4 semaines plus tard. Nos vétérinaires ajustent selon l'exposition aux risques." },
+      { q: "J'ai oublié un rappel, que faire ?", r: "Prenez rendez-vous rapidement : selon le retard, il est parfois nécessaire de reprendre le protocole depuis le début." },
+    ],
+    ctaLabel: 'Prendre rendez-vous pour une vaccination',
+    ctaMessage: 'Je voudrais prendre rendez-vous pour une vaccination.',
+  },
+  {
+    slug: 'consultations',
+    icon: 'consultations',
+    title: 'Consultations',
+    tagline: 'Bilans et suivi personnalisé.',
+    intro: "Bilans de santé complets, suivi des maladies chroniques, avis spécialisé si besoin. Sur rendez-vous ou en visite libre, nos 8 vétérinaires prennent le temps d'expliquer chaque étape et de répondre à vos questions.",
+    inclus: [
+      'Examen clinique complet',
+      'Discussion des symptômes et des antécédents de votre animal',
+      'Orientation vers un vétérinaire spécialisé si nécessaire',
+      'Compte-rendu et recommandations de suivi',
+    ],
+    deroule: [
+      { titre: 'Accueil', texte: 'Vous décrivez le motif de la visite et les éventuels changements observés récemment.' },
+      { titre: 'Examen', texte: "Un examen clinique adapté au motif de consultation." },
+      { titre: 'Échange', texte: 'Le vétérinaire vous explique ses observations et les options possibles.' },
+      { titre: 'Suivi', texte: "Un plan de suivi est proposé si la situation le demande." },
+    ],
+    faq: [
+      { q: 'Faut-il un rendez-vous pour une consultation ?', r: "C'est recommandé pour limiter votre attente, mais les visites libres sont possibles selon les disponibilités du jour." },
+      { q: 'Puis-je être orienté vers un spécialiste ?', r: "Oui, nos vétérinaires vous orientent vers un confrère spécialisé (dermatologie, cardiologie...) si la situation le justifie." },
+    ],
+    ctaLabel: 'Prendre rendez-vous pour une consultation',
+    ctaMessage: 'Je voudrais prendre rendez-vous pour une consultation.',
+  },
+  {
+    slug: 'urgences',
+    icon: 'urgences',
+    title: 'Urgences',
+    tagline: 'Prise en charge rapide 7j/7.',
+    intro: "Une équipe joignable 7j/7 pour les situations qui n'attendent pas : traumatisme, intoxication, difficulté respiratoire. En cas de doute, contactez-nous immédiatement, nous vous guidons par téléphone ou via l'assistant en ligne.",
+    inclus: [
+      'Évaluation immédiate de la situation (téléphone ou assistant en ligne)',
+      'Accueil prioritaire à la clinique pour les cas urgents',
+      "Prise en charge par un vétérinaire disponible, 7j/7",
+    ],
+    deroule: [
+      { titre: 'Premier contact', texte: "Décrivez la situation par téléphone ou à l'assistant : nous évaluons le degré d'urgence." },
+      { titre: 'Consignes immédiates', texte: "Nous vous indiquons les gestes à faire ou à éviter en attendant." },
+      { titre: 'Prise en charge sur place', texte: 'Un vétérinaire prend le relais dès votre arrivée, en priorité sur les cas urgents.' },
+    ],
+    faq: [
+      { q: 'Quels signes doivent m’alerter immédiatement ?', r: "Saignement important, difficulté à respirer, traumatisme (chute, accident), abattement marqué, vomissements répétés. Dans le doute, contactez-nous : mieux vaut un appel de trop qu'un retard de prise en charge." },
+      { q: 'Les urgences sont-elles vraiment disponibles la nuit et le week-end ?', r: "Oui, une astreinte est assurée 7j/7 pour les situations qui ne peuvent pas attendre l'ouverture." },
+    ],
+    ctaLabel: "J'ai une urgence, que dois-je faire ?",
+    ctaMessage: "J'ai une urgence avec mon animal, pouvez-vous m'aider ?",
+  },
+  {
+    slug: 'conseils',
+    icon: 'conseils',
+    title: 'Conseils',
+    tagline: 'Alimentation, comportement, parasites.',
+    intro: "Alimentation adaptée à l'âge et au poids, prévention des parasites, accompagnement du comportement au quotidien. Nos conseils évoluent avec chaque étape de la vie de votre animal, du plus jeune âge à la séniorité.",
+    inclus: [
+      "Recommandations alimentaires selon l'âge, le poids et la race",
+      'Prévention antiparasitaire (puces, tiques, vers)',
+      'Accompagnement comportemental (anxiété, propreté, sociabilisation)',
+      'Conseils adaptés aux animaux seniors',
+    ],
+    deroule: [],
+    faq: [
+      { q: "À quelle fréquence renouveler l'antiparasitaire ?", r: "En général tous les mois pour les traitements externes et tous les 3 mois pour le vermifuge, mais cela dépend du mode de vie de votre animal — demandez conseil lors d'une visite." },
+      { q: 'Mon animal vieillit, faut-il changer son alimentation ?', r: "Oui, les besoins évoluent avec l'âge (moins de calories, plus de soutien articulaire par exemple). Nos vétérinaires peuvent vous orienter vers une alimentation adaptée." },
+    ],
+    ctaLabel: "Poser une question sur l'alimentation ou le comportement",
+    ctaMessage: "J'ai une question sur l'alimentation de mon animal.",
+  },
+];

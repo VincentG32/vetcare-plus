@@ -48,13 +48,20 @@ const {
 
   <slot />
 
-  <div class="foot">© VetCare Plus — Assistant IA &amp; espace pro propulsés par n8n · Démonstration</div>
+  <div class="foot">
+    © VetCare Plus — Assistant IA &amp; espace pro propulsés par n8n · Démonstration ·
+    <a class="foot-link" href="/comment-ca-marche">Comment ça marche</a> ·
+    <a class="foot-link" href="https://vincent-granouillit.vercel.app" target="_blank" rel="noopener">Un projet de Vincent Granouillit</a>
+  </div>
 
-  <script type="module" define:vars={{ chatRole }}>
+  <script is:inline define:vars={{ chatRole }}>
+    window.__CHAT_ROLE__ = chatRole;
+  </script>
+  <script>
     import { createChat } from '@n8n/chat';
     createChat({
       webhookUrl: window.VC_WEBHOOK,
-      metadata: { role: chatRole },
+      metadata: { role: window.__CHAT_ROLE__ || 'public' },
       initialMessages: ['Bonjour ! 🐾 Assistant VetCare Plus.', 'Comment puis-je vous aider ?'],
       i18n: { en: { title: 'VetCare Plus', subtitle: 'Assistant santé animale', footer: '', getStarted: 'Nouvelle conversation', inputPlaceholder: 'Votre question…', closeButtonTooltip: 'Fermer' } }
     });

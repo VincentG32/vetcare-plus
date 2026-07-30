@@ -62,4 +62,21 @@ window.vcOpenChat = function () {
   if (b) b.click();
 };
 
+// Ouvre le chat et pré-remplit le champ de saisie (l'utilisateur reste libre de modifier avant d'envoyer).
+window.vcOpenChatWithMessage = function (text) {
+  window.vcOpenChat();
+  const nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value').set;
+  let tries = 0;
+  (function trySet() {
+    const el = document.querySelector('textarea[data-test-id="chat-input"]');
+    if (el) {
+      nativeSetter.call(el, text);
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+      el.focus();
+    } else if (tries++ < 25) {
+      setTimeout(trySet, 100);
+    }
+  })();
+};
+
 document.addEventListener('DOMContentLoaded', window.vcRenderNav);
