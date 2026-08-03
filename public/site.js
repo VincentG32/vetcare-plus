@@ -17,17 +17,17 @@ window.VC_WEBHOOK = 'https://n8n-bbs9.vincentg-ia.cloud/webhook/beec9f62-2a90-4c
 // identity : cle de scoping (nom du proprietaire pour un patient, nom du veterinaire pour un veto)
 // Mot de passe commun 'demo' (temps 1). Identifiants/mots de passe uniques : temps 2.
 window.VC_ACCOUNTS = {
-  // Proprietaires (niveau 2) : login = leur email personnel
-  'marie.dubois@gmail.com':     { password: 'demo', role: 'patient', level: 2, name: 'Marie Dubois',     identity: 'Marie Dubois' },
-  'paul.renard@gmail.com':      { password: 'demo', role: 'patient', level: 2, name: 'Paul Renard',      identity: 'Paul Renard' },
-  'sophie.leroy@orange.fr':     { password: 'demo', role: 'patient', level: 2, name: 'Sophie Leroy',     identity: 'Sophie Leroy' },
-  'julie.martin@gmail.com':     { password: 'demo', role: 'patient', level: 2, name: 'Julie Martin',     identity: 'Julie Martin' },
-  'marc.petit@outlook.fr':      { password: 'demo', role: 'patient', level: 2, name: 'Marc Petit',       identity: 'Marc Petit' },
-  'lucas.bernard@gmail.com':    { password: 'demo', role: 'patient', level: 2, name: 'Lucas Bernard',    identity: 'Lucas Bernard' },
-  'emma.fontaine@gmail.com':    { password: 'demo', role: 'patient', level: 2, name: 'Emma Fontaine',    identity: 'Emma Fontaine' },
-  'nicolas.faure@sfr.fr':       { password: 'demo', role: 'patient', level: 2, name: 'Nicolas Faure',    identity: 'Nicolas Faure' },
-  'chloe.lemaire@gmail.com':    { password: 'demo', role: 'patient', level: 2, name: 'Chloé Lemaire',    identity: 'Chloé Lemaire' },
-  'antoine.rousseau@outlook.fr':{ password: 'demo', role: 'patient', level: 2, name: 'Antoine Rousseau', identity: 'Antoine Rousseau' },
+  // Proprietaires (niveau 2) : login = leur email (domaine reserve example.com, garanti fictif)
+  'marie.dubois@example.com':     { password: 'demo', role: 'patient', level: 2, name: 'Marie Dubois',     identity: 'Marie Dubois' },
+  'paul.renard@example.com':      { password: 'demo', role: 'patient', level: 2, name: 'Paul Renard',      identity: 'Paul Renard' },
+  'sophie.leroy@example.com':     { password: 'demo', role: 'patient', level: 2, name: 'Sophie Leroy',     identity: 'Sophie Leroy' },
+  'julie.martin@example.com':     { password: 'demo', role: 'patient', level: 2, name: 'Julie Martin',     identity: 'Julie Martin' },
+  'marc.petit@example.com':       { password: 'demo', role: 'patient', level: 2, name: 'Marc Petit',       identity: 'Marc Petit' },
+  'lucas.bernard@example.com':    { password: 'demo', role: 'patient', level: 2, name: 'Lucas Bernard',    identity: 'Lucas Bernard' },
+  'emma.fontaine@example.com':    { password: 'demo', role: 'patient', level: 2, name: 'Emma Fontaine',    identity: 'Emma Fontaine' },
+  'nicolas.faure@example.com':    { password: 'demo', role: 'patient', level: 2, name: 'Nicolas Faure',    identity: 'Nicolas Faure' },
+  'chloe.lemaire@example.com':    { password: 'demo', role: 'patient', level: 2, name: 'Chloé Lemaire',    identity: 'Chloé Lemaire' },
+  'antoine.rousseau@example.com': { password: 'demo', role: 'patient', level: 2, name: 'Antoine Rousseau', identity: 'Antoine Rousseau' },
 
   // Veterinaires (niveau 3) : login = initiale.nom@vetcare.fr
   'l.lefevre@vetcare.fr': { password: 'demo', role: 'veterinaire', level: 3, name: 'Dr. Léa Lefèvre',  identity: 'Dr. Léa Lefèvre' },
