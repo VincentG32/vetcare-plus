@@ -87,7 +87,7 @@ export const SERVICES = [
     ],
     deroule: [],
     faq: [
-      { q: "À quelle fréquence renouveler l'antiparasitaire ?", r: "En général tous les mois pour les traitements externes et tous les 3 mois pour le vermifuge, mais cela dépend du mode de vie de votre animal — demandez conseil lors d'une visite." },
+      { q: "À quelle fréquence renouveler l'antiparasitaire ?", r: "En général tous les mois pour les traitements externes et tous les 3 mois pour le vermifuge, mais cela dépend du mode de vie de votre animal ; demandez conseil lors d'une visite." },
       { q: 'Mon animal vieillit, faut-il changer son alimentation ?', r: "Oui, les besoins évoluent avec l'âge (moins de calories, plus de soutien articulaire par exemple). Nos vétérinaires peuvent vous orienter vers une alimentation adaptée." },
     ],
     ctaLabel: "Poser une question sur l'alimentation ou le comportement",

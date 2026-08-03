@@ -5,13 +5,11 @@ import '@n8n/chat/style.css';
 interface Props {
   title?: string;
   description?: string;
-  chatRole?: 'public' | 'veterinaire' | 'directeur';
 }
 
 const {
-  title = 'VetCare Plus — Clinique vétérinaire',
+  title = 'VetCare Plus · Clinique vétérinaire',
   description = "VetCare Plus : clinique vétérinaire à Paris, 8 vétérinaires, vaccins, soins, urgences 7j/7 et assistant santé animale en ligne.",
-  chatRole = 'public',
 } = Astro.props;
 ---
 
@@ -49,19 +47,18 @@ const {
   <slot />
 
   <div class="foot">
-    © VetCare Plus — Assistant IA &amp; espace pro propulsés par n8n · Démonstration ·
+    © VetCare Plus · Assistant IA &amp; espace pro propulsés par n8n · Démonstration ·
     <a class="foot-link" href="/comment-ca-marche">Comment ça marche</a> ·
     <a class="foot-link" href="https://vincent-granouillit.vercel.app" target="_blank" rel="noopener">Un projet de Vincent Granouillit</a>
   </div>
 
-  <script is:inline define:vars={{ chatRole }}>
-    window.__CHAT_ROLE__ = chatRole;
-  </script>
   <script>
     import { createChat } from '@n8n/chat';
+    // Le contexte (niveau d'acces + identite) vient de la session connectee, jamais du message.
+    const ctx = (window.vcChatContext && window.vcChatContext()) || { role: 'public', identity: '', niveau: 1 };
     createChat({
       webhookUrl: window.VC_WEBHOOK,
-      metadata: { role: window.__CHAT_ROLE__ || 'public' },
+      metadata: { role: ctx.role, identity: ctx.identity, niveau: ctx.niveau },
       initialMessages: ['Bonjour ! 🐾 Assistant VetCare Plus.', 'Comment puis-je vous aider ?'],
       i18n: { en: { title: 'VetCare Plus', subtitle: 'Assistant santé animale', footer: '', getStarted: 'Nouvelle conversation', inputPlaceholder: 'Votre question…', closeButtonTooltip: 'Fermer' } }
     });

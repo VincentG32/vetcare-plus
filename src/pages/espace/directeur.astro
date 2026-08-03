@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 ---
-<Layout title="Tableau de bord Direction — VetCare Plus" chatRole="directeur">
+<Layout title="Tableau de bord Direction · VetCare Plus">
   <div class="dash" id="dashContent">Chargement…</div>
 
   <script>
@@ -32,6 +32,20 @@ import Layout from '../../layouts/Layout.astro';
       });
     }
 
+    // Vue administration : liste des comptes et de leur niveau d'accès (lecture seule, simulée).
+    function adminRows() {
+      const LABEL = { 2: 'Patient', 3: 'Vétérinaire', 4: 'Direction' };
+      const alias = ['patient@vetcare.fr', 'veto@vetcare.fr'];
+      const accounts = window.VC_ACCOUNTS || {};
+      return Object.keys(accounts)
+        .filter((email) => alias.indexOf(email) === -1)
+        .map((email) => ({ email, ...accounts[email] }))
+        .sort((a, b) => b.level - a.level || a.name.localeCompare(b.name))
+        .map((a) => '<tr><td>' + a.name + '</td><td style="color:var(--muted)">' + a.email + '</td><td>'
+          + '<span class="badge" style="background:' + (a.level === 4 ? '#0b3b42' : a.level === 3 ? '#028090' : '#00a896') + '">Niveau ' + a.level + '</span> '
+          + LABEL[a.level] + '</td></tr>').join('');
+    }
+
     const u = window.vcRequireRole('directeur');
     if (u) {
       Promise.all([
@@ -42,13 +56,15 @@ import Layout from '../../layouts/Layout.astro';
         const c = document.getElementById('dashContent');
         const k = (data && data.kpis) || {};
         const al = (data && data.alertes) || [];
-        const kpi = (n, l) => '<div class="kpi"><div class="n">' + (n ?? '—') + '</div><div class="l">' + l + '</div></div>';
+        const kpi = (n, l) => '<div class="kpi"><div class="n">' + (n ?? 'n/c') + '</div><div class="l">' + l + '</div></div>';
         const alH = al.map((a) => '<div class="alert' + (a.toLowerCase().includes('aucun') ? ' ok' : '') + '">' + (a.toLowerCase().includes('aucun') ? '✅ ' : '⚠️ ') + a + '</div>').join('');
         c.innerHTML = '<h1>Tableau de bord · Direction</h1><div class="sub">Vue macro de la clinique · ' + (data ? data.today : '') + ' <span style="color:var(--sea)">● live</span></div>'
-          + '<div class="kpis">' + kpi(k.rdv_today, 'RDV aujourd’hui') + kpi((k.taux_occupation_today ?? '—') + '%', 'Taux d’occupation') + kpi(k.rdv_semaine, 'RDV cette semaine') + kpi(patients.length, 'Patients suivis') + kpi(k.emails_tries, 'Emails triés') + kpi(k.executions_ko, 'Incidents') + '</div>'
+          + '<div class="kpis">' + kpi(k.rdv_today, 'RDV aujourd’hui') + kpi((k.taux_occupation_today ?? 'n/c') + '%', 'Taux d’occupation') + kpi(k.rdv_semaine, 'RDV cette semaine') + kpi(patients.length, 'Patients suivis') + kpi(k.emails_tries, 'Emails triés') + kpi(k.executions_ko, 'Incidents') + '</div>'
           + '<div class="panel"><h3>Points de vigilance</h3>' + (alH || '<div class="alert ok">✅ RAS</div>') + '</div>'
           + '<div class="grid2"><div class="panel"><h3>RDV par jour</h3><canvas id="chJours" height="180"></canvas></div><div class="panel"><h3>Répartition des demandes (triage)</h3><canvas id="chTriage" height="180"></canvas></div></div>'
-          + '<div class="panel"><h3>Fiabilité technique (monitoring)</h3><canvas id="chMon" height="110"></canvas></div>';
+          + '<div class="panel"><h3>Fiabilité technique (monitoring)</h3><canvas id="chMon" height="110"></canvas></div>'
+          + '<div class="panel"><h3>Administration · accès et droits <span style="font-size:.7rem;color:var(--muted)">lecture seule</span></h3>'
+          + '<table><tr><th>Utilisateur</th><th>Identifiant</th><th>Niveau d’accès</th></tr>' + adminRows() + '</table></div>';
         setTimeout(() => drawCharts(data), 60);
       });
     }
