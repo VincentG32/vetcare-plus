@@ -41,6 +41,7 @@ Ce projet est une démonstration. L'authentification (comptes en dur, mot de pas
 - **JavaScript vanilla** pour l'authentification simulée et le rendu des tableaux de bord (pas de framework front lourd, volontairement).
 - **[Chart.js](https://www.chartjs.org)** pour les graphiques du tableau de bord Direction.
 - **[@n8n/chat](https://www.npmjs.com/package/@n8n/chat)** pour le widget de conversation, branché sur un webhook n8n.
+- **[Supabase](https://supabase.com)** (PostgreSQL · pgvector · Row Level Security) : données relationnelles et base de connaissance vectorielle du RAG.
 - **[Vercel](https://vercel.com)** pour l'hébergement et le déploiement continu.
 
 Le backend (agent IA, RAG, mémoire, dossier patient, triage, évaluation) : **n8n** (orchestration), **Anthropic Claude** (Sonnet pour l'agent, Haiku pour les tâches de classification), **Cohere** (embeddings), **Supabase** — PostgreSQL pour les données relationnelles (propriétaires, animaux, soins, vétérinaires, rendez-vous, monitoring) et **pgvector** pour la base de connaissance vectorielle, avec Row Level Security.
