@@ -6,9 +6,9 @@ Site vitrine et espace connecté d'une clinique vétérinaire fictive, avec un a
 
 ## Le contexte
 
-Ce projet est né pendant un hackathon de fin de formation (bloc IA, La Capsule) : construire pour une clinique vétérinaire fictive un système capable de répondre aux questions des propriétaires d'animaux, de trier les emails entrants et de mesurer en continu la qualité de ses réponses, le tout avec une IA, une base de connaissance, des garde-fous de sécurité et une évaluation chiffrée.
+VetCare Plus est un projet de démonstration : construire pour une clinique vétérinaire fictive un système capable de répondre aux questions des propriétaires d'animaux, de trier les emails entrants et de mesurer en continu la qualité de ses réponses — le tout avec une IA, une base de connaissance, des garde-fous de sécurité et une évaluation chiffrée.
 
-Le dépôt que vous lisez ne contient que la **partie visible** : le site public, l'espace connecté et le widget de chat. Le reste du système (l'agent IA, son garde-fou de sécurité, la recherche documentaire RAG, la mémoire client, l'outil de dossier patient, le triage automatique des emails et l'évaluation continue) tourne dans une instance privée [n8n](https://n8n.io), avec [Airtable](https://airtable.com) comme base de données et [Qdrant](https://qdrant.tech) comme base vectorielle. Ce n'est pas ouvert dans ce dépôt (infrastructure personnelle), mais c'est décrit ci-dessous pour donner une vue complète du projet.
+Le dépôt que vous lisez ne contient que la **partie visible** : le site public, l'espace connecté et le widget de chat. Le reste du système (l'agent IA, son garde-fou de sécurité, la recherche documentaire RAG, la mémoire client, l'outil de dossier patient, le triage automatique des emails et l'évaluation continue) tourne dans une instance privée [n8n](https://n8n.io), avec [Supabase](https://supabase.com) (PostgreSQL) comme base de données et sa recherche vectorielle native **pgvector** pour la base de connaissance. Ce n'est pas ouvert dans ce dépôt (infrastructure personnelle), mais c'est décrit ci-dessous pour donner une vue complète du projet.
 
 ## Ce que fait le site
 
@@ -43,7 +43,7 @@ Ce projet est une démonstration. L'authentification (comptes en dur, mot de pas
 - **[@n8n/chat](https://www.npmjs.com/package/@n8n/chat)** pour le widget de conversation, branché sur un webhook n8n.
 - **[Vercel](https://vercel.com)** pour l'hébergement et le déploiement continu.
 
-Le backend (agent IA, RAG, mémoire, dossier patient, triage, évaluation) : **n8n** (orchestration), **Anthropic Claude** (Sonnet pour l'agent, Haiku pour les tâches de classification), **Cohere** (embeddings), **Qdrant** (base vectorielle), **Airtable** (données relationnelles : propriétaires, animaux, soins, vétérinaires, rendez-vous, monitoring).
+Le backend (agent IA, RAG, mémoire, dossier patient, triage, évaluation) : **n8n** (orchestration), **Anthropic Claude** (Sonnet pour l'agent, Haiku pour les tâches de classification), **Cohere** (embeddings), **Supabase** — PostgreSQL pour les données relationnelles (propriétaires, animaux, soins, vétérinaires, rendez-vous, monitoring) et **pgvector** pour la base de connaissance vectorielle, avec Row Level Security.
 
 ## Structure du projet
 
@@ -85,7 +85,3 @@ npm run build
 ```
 
 Déployé automatiquement sur Vercel (adaptateur `@astrojs/vercel`, sortie statique).
-
----
-
-*Projet réalisé dans le cadre de la formation IA de [La Capsule](https://lacapsule.io).*
