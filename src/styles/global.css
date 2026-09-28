@@ -36,6 +36,8 @@ h1,h2,h3,.brand-word{font-family:'Fraunces',serif;letter-spacing:-.01em}
 .floating-card .dot{width:8px;height:8px;border-radius:50%;background:var(--sea);flex:none;box-shadow:0 0 0 4px rgba(0,168,150,.18)}
 .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
 .section-kicker{color:var(--teal);font-weight:700;font-size:.78rem;letter-spacing:1.2px;text-transform:uppercase;margin:0 0 16px}
+.video-section{margin:56px 0 0}
+.video-section video{display:block;width:100%;aspect-ratio:16/9;border-radius:var(--r-lg);box-shadow:var(--shadow-lg);background:var(--dark)}
 .cards{display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:-64px;position:relative;z-index:2}
 .card{background:#fff;border-radius:var(--r-md);box-shadow:var(--shadow-md);padding:26px 22px;flex:1 1 210px;max-width:252px;text-align:left;text-decoration:none;display:block;transition:transform .18s ease,box-shadow .18s ease}
 .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
