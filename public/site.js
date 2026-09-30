@@ -95,6 +95,15 @@ window.vcDoLogin = function (e) {
   return false;
 };
 
+// Connexion demo en 1 clic depuis l'accueil (aucune saisie). Auth simulee, usage vitrine uniquement.
+window.vcQuickLogin = function (email) {
+  const account = window.VC_ACCOUNTS[email];
+  if (!account) return false;
+  localStorage.setItem('vc_email', email);
+  location.href = '/espace/' + account.role;
+  return false;
+};
+
 // A appeler en haut de chaque page d'espace connecte : redirige si non connecte ou mauvais role.
 window.vcRequireRole = function (role) {
   const u = window.vcCurrentUser();

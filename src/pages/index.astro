@@ -46,6 +46,33 @@ import { ICONS } from '../data/icons.js';
       ))}
     </div>
 
+    <div class="demo-access">
+      <div class="section-kicker">Essayer la démo</div>
+      <h2 class="demo-title">Explorez les 3 espaces en un clic</h2>
+      <p class="demo-lead">Aucune inscription : choisissez un profil, vous entrez directement dans son espace. Les données sont fictives, à but de démonstration.</p>
+      <div class="demo-cards">
+        <div class="card demo-card">
+          <div class="card-icon">🐾</div>
+          <h3>Espace Patient</h3>
+          <p>Le dossier de vos animaux, l'historique des soins et vos conseils personnalisés.</p>
+          <button class="btn demo-btn" onclick="vcQuickLogin('patient@vetcare.fr')">Entrer comme patient</button>
+        </div>
+        <div class="card demo-card">
+          <div class="card-icon">🩺</div>
+          <h3>Espace Vétérinaire</h3>
+          <p>Vos patients, votre planning et l'assistant clinique au service du soin.</p>
+          <button class="btn demo-btn" onclick="vcQuickLogin('veto@vetcare.fr')">Entrer comme vétérinaire</button>
+        </div>
+        <div class="card demo-card">
+          <div class="card-icon">🏛️</div>
+          <h3>Espace Direction</h3>
+          <p>Le pilotage de l'activité : tableau de bord, triage des demandes et supervision.</p>
+          <button class="btn demo-btn" onclick="vcQuickLogin('directeur@vetcare.fr')">Entrer comme direction</button>
+        </div>
+      </div>
+      <p class="demo-note">Vous préférez saisir des identifiants ? <a href="/connexion">Aller à la page de connexion →</a></p>
+    </div>
+
     <div class="video-section">
       <div class="section-kicker">VetCare Plus en une minute</div>
       <video
@@ -79,3 +106,16 @@ import { ICONS } from '../data/icons.js';
     </div>
   </div>
 </Layout>
+
+<style>
+  .demo-access { text-align: center; margin: 60px auto 8px; }
+  .demo-title { font-size: 1.6rem; margin: 0 0 8px; color: var(--ink); }
+  .demo-lead { color: var(--muted); max-width: 580px; margin: 0 auto 30px; font-size: .95rem; }
+  .demo-cards { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; }
+  .demo-cards .card { flex: 1 1 240px; max-width: 290px; text-align: left; }
+  .demo-cards .card-icon { font-size: 1.5rem; }
+  .demo-btn { width: 100%; margin-top: 16px; }
+  .demo-note { margin-top: 26px; font-size: .88rem; color: var(--muted); }
+  .demo-note a { color: var(--teal); font-weight: 600; text-decoration: none; }
+  .demo-note a:hover { text-decoration: underline; }
+</style>
