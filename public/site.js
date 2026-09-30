@@ -10,7 +10,8 @@
 
 window.VC_API = 'https://n8n-bbs9.vincentg-ia.cloud/webhook/vetcare-dashboard';
 window.VC_API_PATIENTS = 'https://n8n-bbs9.vincentg-ia.cloud/webhook/vetcare-patients';
-window.VC_WEBHOOK = 'https://n8n-bbs9.vincentg-ia.cloud/webhook/beec9f62-2a90-4c5f-9b33-c216fb162cfd/chat';
+// Le chat passe par le relais /api/chat (limites de la demo appliquees par visiteur).
+window.VC_WEBHOOK = '/api/chat';
 
 // role : patient | veterinaire | directeur (sert au routage /espace/<role> et au chat)
 // level : niveau d'acces 2, 3 ou 4
